@@ -1,6 +1,15 @@
+#!/usr/bin/env python
+# coding=utf-8
+
 # '-------------------------------'
 # skype.py Created by Respire
 # '-------------------------------'
+#!/usr/bin/env python
+# coding=utf-8
+
+#Created by Respire
+#Copyright RespireDev © 2014
+#https://github.com/respiredev
 
 import requests
 import sys
@@ -36,10 +45,21 @@ printout("Python Skype Resolver ~ Created by Respire\r\n"  , CYAN)
 printout("*\--------------------------------------\*\r\n" , RED) 
 
 username = raw_input('> Skype Username: ')
-data = requests.get("http://betaresolver.fr//api/apifree.php", params={'key': 'free', 'pseudo': username})
+
+#BetaResolver API
+data = requests.get("http://api.betaresolver.fr//apifree.php", params={'key': 'free', 'pseudo': username})
 
 found = re.findall(r'[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}', data.content)
 if len(found) > 0:
     for ip in found:
-        print("Found: %s"%ip)
+        print('BetaResolver API')
+        print("> Found: %s"%ip)
+print('\r\n')
+
+#Obnoxious API
+request = requests.get('http://gibson.tgqx.at/api/%s'%username)
+
+for data in request.json():
+    print('Obnoxious API')
+    print('> Found IP: %s'%data['public'])
 print('\r\n')
