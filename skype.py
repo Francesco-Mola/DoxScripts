@@ -8,12 +8,15 @@
 # coding=utf-8
 
 #Created by Respire
-#Copyright RespireDev © 2014
+#Copyright RespireDev © 2015
 #https://github.com/respiredev
 
 import requests
 import sys
 import re
+import urllib3
+
+urllib3.disable_warnings()
 
 #Simple Class Color
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
@@ -47,19 +50,37 @@ printout("*\--------------------------------------\*\r\n" , RED)
 username = raw_input('> Skype Username: ')
 
 #BetaResolver API
-data = requests.get("http://api.betaresolver.fr//apifree.php", params={'key': 'free', 'pseudo': username})
+betaresolver = requests.get("http://api.betaresolver.fr/apifree.php", params={'key': '146530553', 'username': username}, verify=False)
 
-found = re.findall(r'[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}', data.content)
+found = re.findall(r'[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}', betaresolver.content)
 if len(found) > 0:
     for ip in found:
-        print('BetaResolver API')
+        print('[!] BetaResolver API')
         print("> Found: %s"%ip)
 print('\r\n')
 
-#Obnoxious API
-request = requests.get('http://gibson.tgqx.at/api/%s'%username)
+#Idk Public API? lol
+data = requests.get('https://www.hackthatapi.com/?command=7&username=%s'%username, verify=False)
 
-for data in request.json():
-    print('Obnoxious API')
-    print('> Found IP: %s'%data['public'])
-print('\r\n')
+ip = data.content
+
+print('[!] HackThatAPI: ')
+print('> Found IP: %s'%ip)
+
+#GoResolver
+
+gores = requests.get('http://goresolver.com/free.php?key=052cae565fd3a3d23ac831b9f51892c2&user=%s'%username, verify=False)
+
+goip = gores.content
+
+print('[!] GoResolver API: ')
+print('> Found IP: %s'%goip)
+
+#SkypeGrab
+
+skypegrab = requests.get('http://skypegrab.net/api.php?key=Yvht6Tbiudma53kGXE&username=%s'%username, verify=False)
+
+skip = skypegrab.content
+
+print('[!] SkypeGrab API:')
+print('> Found IP: %s'%goip)
