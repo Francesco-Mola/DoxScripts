@@ -4,6 +4,9 @@
 #Copyright RespireDev © 2014
 #https://github.com/respiredev
 
+# Wait a minute?!  Didn't you copy this from Matthew Blankenship?!!!  I think so, Francesco!!!
+# Err...  Embarassing.
+
 from bs4 import BeautifulSoup
 
 import mechanize
